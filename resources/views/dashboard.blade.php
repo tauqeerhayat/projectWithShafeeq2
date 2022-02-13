@@ -50,7 +50,6 @@
                             </div>
                             <div class="card-body">
                                 <h1 class="text-primary">{{ auth()->user()->username}}</h1>
-                                <p><img src="{{ auth()->user()->profile_photo_url }}"></p>
                             </div>
                         </div>
                     </div>

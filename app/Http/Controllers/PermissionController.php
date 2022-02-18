@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permission;
+// use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+// use Spatie\Permission\Contracts\Permission;
+use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
@@ -45,9 +47,10 @@ class PermissionController extends Controller
             'name'=>'required|unique:permissions'
         ]);
 
-        Permission::create($request->all());
+        // Permission::create($request->all());
+        $permission = Permission::create(['name' => 'edit articles']);
 
-        return redirect('/role')->with('status', 'Permission Added Successfully.');
+        return redirect('/permission')->with('status', 'Permission Added Successfully.');
 
     }
 
@@ -106,7 +109,13 @@ class PermissionController extends Controller
     {
         $reqPer = Permission::findOrFail($id);
         $reqPer->delete();
-        return response('Role Deleted Successfully.', 200);
+
+        return response()->json([
+            'status'=> true,
+            'data'=> '',
+            'message'=>'Record Deleted!'
+        ]);
+        // return json_encode('Role Deleted Successfully.', 200);
         // return redirect('/permission')->with('status', 'Permission Deleted Successfully.');
 
     }

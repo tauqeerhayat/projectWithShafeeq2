@@ -10,6 +10,28 @@
 
 
 @section('content')
+
+                                                                            <!-- Modal -->
+                                                                            <div class="modal fade" id="deletePerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Role</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                        <p>Do you want to remove this Role?</p>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                        <button type="button" class="btn btn-primary " id="delete-per-btn">Save changes</button>
+                                                                                        {{-- <a href="{{url('role/delete/'.$role->id)}}" class="btn btn-danger ">Delete</a> --}}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-wrapper">
@@ -59,9 +81,8 @@
                                                 </div>
                                                 <div class="card-content collapse show ">
                                                     <div class="card-body card-dashboard">
-                                                        {{-- <p class="card-text">DataTables has most features enabled by default, so all you need to do to use it with your own ables is to call the construction function: $().DataTable();.</p> --}}
                                                         <div class="table-responsive">
-                                                            <table class="table table-striped table-bordered zero-configuration">
+                                                            <table class="table table-striped table-bordered zero-configuration" id="perTable">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>ID</th>
@@ -78,32 +99,11 @@
                                                                         <td class="text-center"><a href="{{ route('admin.permission.show', $role->id) }}" class="btn btn-sm btn-primary">View</a></td>
                                                                         <td class=" text-center">
                                                                             <a href="{{ route('admin.permission.edit', $role->id)}}" class="btn btn-sm btn-success">Edit</a>
-                                                                            <a href="{{url('permission/delete/'.$role->id)}}" class="btn btn-sm btn-danger ">Delete</a>
+                                                                            {{-- <a href="{{url('permission/delete/'.$role->id)}}" class="btn btn-sm btn-danger ">Delete</a> --}}
                                                                             <!-- Button trigger modal -->
-                                                                            <button type="button" class="btn btn-sm btn-danger " data-toggle="modal" data-target="#exampleModal">
+                                                                            <a href="javascript:void(0)" class="btn btn-sm btn-danger deletePerBtn" data-permission-id="{{$role->id}}">
                                                                                 Delete
-                                                                            </button>
-                                                                            <!-- Modal -->
-                                                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                                <div class="modal-dialog" role="document">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Role</h5>
-                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                        <span aria-hidden="true">&times;</span>
-                                                                                    </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                    <p>Do you want to remove this Role?</p>
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                    {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
-                                                                                    <a href="{{url('role/delete/'.$role->id)}}" class="btn btn-danger ">Delete</a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                </div>
-                                                                            </div>
+                                                                            </a>
                                                                         </td>
                                                                     </tr>
                                                                     @endforeach
@@ -141,4 +141,27 @@
     <!-- BEGIN: Page JS-->
     <script src="app-assets/js/scripts/tables/datatables/datatable-basic.js" type="text/javascript"></script>
     <!-- END: Page JS-->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#perTable').on('click', '.deletePerBtn', function(){
+                var p_id = $(this).attr('data-permission-id');
+                // console.log(p_id);
+                $('#deletePerModal').modal('show').attr('modal-permission-id', p_id);
+                // console.log(p_id);
+            });
+            $('#delete-per-btn').on('click', function(){
+                var id = $('#deletePerModal').attr('modal-permission-id');
+                // console.log(id);
+                $.ajax({
+                    type:"DELETE",
+                    url: `${siteUrl}permission/delete/${id}`,
+                    data:{},
+                    success:function(data){
+                        // alert("done");
+                        window.location.reload();
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

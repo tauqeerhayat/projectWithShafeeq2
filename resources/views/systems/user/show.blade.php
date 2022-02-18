@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Create Permission</title>
+    <title>Role</title>
 @endsection
+
+@section('onPageStyles')
+<link rel="stylesheet" type="text/css" href="app-assets/vendors/css/tables/datatable/datatables.min.css">
+@endsection
+
 
 @section('content')
     <!-- BEGIN: Content-->
@@ -11,7 +16,7 @@
             <div class="content-wrapper-before"></div>
             <div class="content-header row">
                 <div class="content-header-left col-md-4 col-12 mb-2">
-                    <h3 class="content-header-title">Create New Permission</h3>
+                    <h3 class="content-header-title">Role</h3>
                 </div>
                 <div class="content-header-right col-md-8 col-12">
                     <div class="breadcrumbs-top float-md-right">
@@ -21,10 +26,7 @@
                                     <a href="{{ route('dashboard')}}">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('admin.role')}}">Permission</a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="#">New</a>
+                                    <a href="{{ route('admin.role')}}">Users</a>
                                 </li>
                             </ol>
                         </div>
@@ -40,21 +42,22 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="card">
-                                                <div class="card-header">
-                                                </div>
-                                                <div class="card-content">
+                                                <div class="card-header"></div>
+                                                <div class="card-content collapse show ">
                                                     <div class="card-body card-dashboard">
-                                                        <form method="POST" action="{{ route('admin.permission.store') }}">
-                                                            @csrf
-                                                            <div class="form-group">
-                                                                <label for="name" class="form-label">Permission Name</label>
-                                                                <input type="text" class="form-control" name="name" placeholder="Enter Your Permission Name" autofocus>
-                                                                @error('name')
-                                                                    <span class="text-danger">{{$message}}</span>
-                                                                @enderror
+                                                        <div class="card-body card-dashboard">
+                                                            <div class="d-flex">
+                                                                <div>
+                                                                    <h6>User Name:</h6>
+                                                                    <h2>{{$user->username}}</h2>
+                                                                </div>
+                                                                <div class="ml-3">
+                                                                    <p>This User have Following Roles</p>
+                                                                    <br>
+                                                                    <h4>{{$user_role->name}}</h4>
+                                                                </div>
                                                             </div>
-                                                            <button type="submit" class="btn btn-success">Save Permission</button>
-                                                        </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

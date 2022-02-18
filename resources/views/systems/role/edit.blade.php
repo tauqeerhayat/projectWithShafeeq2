@@ -44,17 +44,41 @@
                                                 </div>
                                                 <div class="card-content">
                                                     <div class="card-body card-dashboard">
-                                                        <form method="POST" action="{{route('admin.role.update', $reqRole->id)}}">
-                                                            @csrf
-                                                            <div class="form-group">
-                                                                <label for="name" class="form-label">Role Name</label>
-                                                                <input type="text" class="form-control" name="name" value="{{$reqRole->name}}">
-                                                                @error('name')
-                                                                    <span class="text-danger">{{$message}}</span>
-                                                                @enderror
+                                                        {{-- {!! Form::model($role, ['method' => 'POST','route' => ['admin.role.update', $role->id]]) !!} --}}
+                                                        {!! Form::open(array('route' => ['admin.role.update', $role->id],'method'=>'POST')) !!}
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                                <div class="form-group">
+                                                                    <strong>Name:</strong>
+                                                                    {{-- {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!} --}}
+                                                                    <input type="text" value="{{$role->name}}" name="name" class="form-control">
+                                                                </div>
                                                             </div>
-                                                            <button type="submit" class="btn btn-success">Update Role</button>
-                                                        </form>
+                                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                                <div class="form-group">
+                                                                    <strong>Permission:</strong>
+                                                                    <br/>
+
+                                                                    @foreach($permissions as $value)
+                                                                        {{-- <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }} --}}
+                                                                        {{-- {{ in_array($role->name, $rolePermissions) }} --}}
+                                                                        <br/>
+                                                                            <input
+                                                                        type="checkbox"
+                                                                         name="permissions[]"
+                                                                          {{ in_array($value->id, $rolePermissions) ? 'checked' : ''}}
+                                                                          value="{{$value->id}}"
+                                                                          >
+                                                                        <label for="">{{ $value->name }}</label>
+                                                                    <br/>
+                                                                    @endforeach
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                        {!! Form::close() !!}
                                                     </div>
                                                 </div>
                                             </div>

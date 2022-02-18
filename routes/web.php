@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +34,7 @@ Route::get('/role/{id}', [RoleController::class, 'show'])->name('admin.role.perm
 Route::get('/role/edit/{id}', [RoleController::class, 'edit'])->name('admin.role.edit');
 Route::post('/role/update/{id}', [RoleController::class, 'update'])->name('admin.role.update');
 
-Route::get('/role/delete/{id}', [RoleController::class, 'destroy'])->name('admin.role.delete');
+Route::delete('/role/delete/{id}', [RoleController::class, 'destroy'])->name('admin.role.delete');
 
 /*****Permission */
 Route::get('/permission', [PermissionController::class, 'index'])->name('admin.permission');
@@ -42,4 +43,10 @@ Route::post('/permission/create/store', [PermissionController::class, 'store'])-
 Route::get('/permission/show/{id}', [PermissionController::class, 'show'])->name('admin.permission.show');
 Route::get('/permission/edit/{id}', [PermissionController::class, 'edit'])->name('admin.permission.edit');
 Route::post('/permission/update/{id}', [PermissionController::class, 'update'])->name('admin.permission.update');
-Route::get('/permission/delete/{id}', [PermissionController::class, 'destroy'])->name('admin.permission.delete');
+Route::delete('/permission/delete/{id}', [PermissionController::class, 'destroy'])->name('admin.permission.delete');
+
+/*** Users */
+Route::get('/users', [UserController::class, 'index'])->name('admin.user');
+Route::get('/users/{id}', [UserController::class, 'show'])->name('admin.user.show');
+Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('admin.user.edit');
+Route::post('/users/update/{id}', [UserController::class, 'update'])->name('admin.user.update');

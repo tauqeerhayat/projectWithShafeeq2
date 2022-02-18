@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Create Permission</title>
+    <title>Create Role</title>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
             <div class="content-wrapper-before"></div>
             <div class="content-header row">
                 <div class="content-header-left col-md-4 col-12 mb-2">
-                    <h3 class="content-header-title">Create New Permission</h3>
+                    <h3 class="content-header-title">Create New Role</h3>
                 </div>
                 <div class="content-header-right col-md-8 col-12">
                     <div class="breadcrumbs-top float-md-right">
@@ -21,7 +21,7 @@
                                     <a href="{{ route('dashboard')}}">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('admin.role')}}">Permission</a>
+                                    <a href="{{ route('admin.role')}}">Role</a>
                                 </li>
                                 <li class="breadcrumb-item">
                                     <a href="#">New</a>
@@ -44,16 +44,16 @@
                                                 </div>
                                                 <div class="card-content">
                                                     <div class="card-body card-dashboard">
-                                                        <form method="POST" action="{{ route('admin.permission.store') }}">
+                                                        <form method="POST" action="{{ route('admin.role.store') }}">
                                                             @csrf
                                                             <div class="form-group">
-                                                                <label for="name" class="form-label">Permission Name</label>
-                                                                <input type="text" class="form-control" name="name" placeholder="Enter Your Permission Name" autofocus>
+                                                                <label for="name" class="form-label">name</label>
+                                                                <input type="text" class="form-control" name="name" placeholder="Enter Your name">
                                                                 @error('name')
                                                                     <span class="text-danger">{{$message}}</span>
                                                                 @enderror
                                                             </div>
-                                                            <button type="submit" class="btn btn-success">Save Permission</button>
+                                                            <button type="submit" class="btn btn-success">Save Role</button>
                                                         </form>
                                                     </div>
                                                 </div>

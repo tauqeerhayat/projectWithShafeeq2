@@ -15,6 +15,10 @@
             </li>
         </ul>
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+            <li class=" nav-item"><a href="{{ route('admin.user')}}"><i class="ft-users"></i><span class="menu-title" data-i18n="">Users</span></a>
+            </li>
+        </ul>
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class=" nav-item"><a href="{{ route('admin.role')}}"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Role</span></a>
             </li>
         </ul>

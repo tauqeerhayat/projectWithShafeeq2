@@ -48,7 +48,7 @@
                                     <a href="{{ route('dashboard')}}">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('admin.role')}}">Role</a>
+                                    <a href="{{ route('admin.role')}}">Users</a>
                                 </li>
                             </ol>
                         </div>
@@ -65,7 +65,7 @@
                                         <div class="col-12">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h4 class="card-title"><a href="{{ route('admin.role.create')}}" class="btn btn-bg-gradient-x-purple-blue mr-1 mb-1">Create New Role</a></h4>
+                                                    {{-- <h4 class="card-title"><a href="{{ route('admin.role.create')}}" class="btn btn-bg-gradient-x-purple-blue mr-1 mb-1">Create New Role</a></h4> --}}
                                                     @if (Session::has('status'))
                                                         <span class="text-success">{{Session::get('status')}}</span>
                                                     @endif
@@ -87,18 +87,20 @@
                                                                     <tr>
                                                                         <th>ID</th>
                                                                         <th>Name</th>
-                                                                        <th>Permission</th>
+                                                                        <th>Email</th>
+                                                                        <th>Role</th>
                                                                         <th>Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($roles as $key => $role)
+                                                                    @foreach ($users as $key => $role)
                                                                     <tr>
                                                                         <td>{{ ++$key}}</td>
-                                                                        <td>{{ $role->name}}</td>
-                                                                        <td class="text-center"><a href="{{url('role/'.$role->id)}}" class="btn btn-sm btn-primary">View</a></td>
+                                                                        <td>{{ $role->username}}</td>
+                                                                        <td>{{ $role->email}}</td>
+                                                                        <td class="text-center"><a href="{{route('admin.user.show', $role->id)}}" class="btn btn-sm btn-primary">View</a></td>
                                                                         <td class=" text-center">
-                                                                            <a href="{{url('role/edit/'.$role->id)}}" class="btn btn-sm btn-success">Edit</a>
+                                                                            <a href="{{ route('admin.user.edit', $role->id) }}" class="btn btn-sm btn-success">Edit</a>
                                                                             <a href="javascript:void(0)" class="btn btn-danger btn-sm deleteBtn" data-role-id="{{ $role->id}}">
                                                                                 Delete
                                                                             </a>
@@ -110,6 +112,7 @@
                                                                     <tr>
                                                                         <th>ID</th>
                                                                         <th>Name</th>
+                                                                        <th>Email</th>
                                                                         <th>Role</th>
                                                                         <th>Action</th>
                                                                     </tr>

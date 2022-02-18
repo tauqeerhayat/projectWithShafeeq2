@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    <title>Create Permission</title>
+    <title>Edit Role</title>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
             <div class="content-wrapper-before"></div>
             <div class="content-header row">
                 <div class="content-header-left col-md-4 col-12 mb-2">
-                    <h3 class="content-header-title">Create New Permission</h3>
+                    <h3 class="content-header-title">Edit User Role</h3>
                 </div>
                 <div class="content-header-right col-md-8 col-12">
                     <div class="breadcrumbs-top float-md-right">
@@ -21,10 +21,10 @@
                                     <a href="{{ route('dashboard')}}">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('admin.role')}}">Permission</a>
+                                    <a href="{{ route('admin.user')}}">User Role</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="#">New</a>
+                                    <a href="#">Edit</a>
                                 </li>
                             </ol>
                         </div>
@@ -44,17 +44,32 @@
                                                 </div>
                                                 <div class="card-content">
                                                     <div class="card-body card-dashboard">
-                                                        <form method="POST" action="{{ route('admin.permission.store') }}">
-                                                            @csrf
-                                                            <div class="form-group">
-                                                                <label for="name" class="form-label">Permission Name</label>
-                                                                <input type="text" class="form-control" name="name" placeholder="Enter Your Permission Name" autofocus>
-                                                                @error('name')
-                                                                    <span class="text-danger">{{$message}}</span>
-                                                                @enderror
-                                                            </div>
-                                                            <button type="submit" class="btn btn-success">Save Permission</button>
-                                                        </form>
+                                                        {{-- <div class="form-group">
+                                                            <label for="name" class="form-label">Role Name</label>
+                                                            <input type="text" class="form-control" name="name" disabled value="{{$user->username}}">
+                                                            @error('name')
+                                                                <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div> --}}
+                                                        <div class="form-group ">
+                                                            {{-- <p>Role Are Currently Available:</p> --}}
+                                                            <form method="POST" action="{{route('admin.user.update', $user->id)}}">
+                                                                @csrf
+                                                                <label for="name" class="form-label">Role Name</label>
+                                                                <input type="text" class="form-control" name="name" value="{{$user->name}}">
+                                                                @foreach ($roles as $role)
+
+                                                                <input
+                                                                type="checkbox"
+                                                                name="role" id=""
+                                                                value="{{$role->id}}"
+                                                                >
+                                                                <label>{{$role->name}}</label>
+                                                                <br>
+                                                                @endforeach
+                                                                <button type="submit" class="btn btn-success mt-2">Assign Role</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
